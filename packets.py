@@ -1,6 +1,6 @@
 """
 Grace Lombardi
-I made a program that sends 100 packets to a chosen IP and port
+I made a program that sends 100 packets to a chosen IP address and port
 """
 
 import socket
