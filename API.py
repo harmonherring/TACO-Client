@@ -1,8 +1,7 @@
 import socket
 import requests
 import random
-from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import json
+"""Nik made all things below"""
 
 class API:
     def __init__(self):
@@ -12,9 +11,10 @@ class API:
         r = requests.get(f"{self.endpoint}/getTasks?task = {task}")
         return r.json()
 
+
     def askForCode(self):
         code = input('Your code:')
-        r =  requests.get(f"{self.endpoint}/verifycode?password = {code}")
+        r = requests.get(f"{self.endpoint}/verifycode?password = {code}")
         return r.json()
 
     def registerClient(self):
@@ -22,9 +22,11 @@ class API:
         r = requests.get(f"{self.endpoint}/addclient?name ={name}")
         return r.json()
 
-    def validentClient(self, clients):
-        return 'null'
+    def runOnClient():
+        getTasks(task)
+        ping(self,chunk,ip)
 
+    """Grace made all things below"""
     def ping(self, chunk, ip):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         bytes = random._urandom(1362)
