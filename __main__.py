@@ -80,13 +80,16 @@ def get_assignment():
         target = task['target']
         port = task['port']
         chunksize = task['chunksize']
+        #type_dos = task['type']
         return target, port, chunksize
-    return False, False, False
+        #return target, port, chunksize, type_dos
+    return False, False, False,
 
 
 def perform_dos():
     while True:
         target, port, chunksize = get_assignment()
+        #target, port, chunksize,  type_dos = get_assignment()
         if target and port and chunksize:
             ping(target, port, chunksize)
         else:
