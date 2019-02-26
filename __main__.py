@@ -80,7 +80,9 @@ def get_assignment():
         target = task['target']
         port = task['port']
         chunksize = task['chunksize']
-        return target, port, chunksize
+        active = task['active']
+        if active:
+            return target, port, chunksize
     return False, False, False
 
 
