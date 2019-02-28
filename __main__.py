@@ -72,7 +72,7 @@ def ping(target, port, chunksize):
 
 
 def get_assignment():
-    data = requests.get(API_URL + "/clients/" + UUID).json()[0]
+    data = requests.get(API_URL + "/clients/" + str(UUID)).json()[0]
     active = data['active']
     task_id = data['task_id']
     if active and task_id:
