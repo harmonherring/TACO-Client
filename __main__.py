@@ -3,7 +3,7 @@
         1. Check if config file with registration info exists
         2. Pull data from that file.  If it doesn't exist, register self with
             server and create registration info file
-        3. Contact server using UUID in registration file, determine if active
+        3. Contact server using UID in registration file, determine if active
             and assigned task.
         4. Continue to check for task if no task.
         5. Once a task is given, perform task (ping X number of times) and check
@@ -18,9 +18,9 @@ import os
 from time import sleep
 
 API_URL = ""
-UUID = ""
+UID = ""
 
-def get_uuid():
+def get_uid():
     """
         Gets and saves a unique identifier for this computer.
         Only called if the 'config' file does not exist
@@ -48,17 +48,17 @@ def get_api_location():
 
 
 def get_config():
-    global UUID
+    global UID
     try:
         file = open("config", "r+")
         for line in file.readlines():
-            UUID = line
+            UID = line
             break
         file.close()
     except:
-        UUID = get_uuid()
+        UID = get_uid()
         file = open("config", "x")
-        file.write(str(UUID))
+        file.write(str(UID))
 
 
 def ping(target, port, chunksize):
@@ -72,11 +72,11 @@ def ping(target, port, chunksize):
 
 
 def get_assignment():
-    data = requests.get(API_URL + "/clients/" + str(UUID)).json()[0]
+    data = requests.get(API_URL + "/clients/" + str(UID)).json()
     active = data['active']
     task_id = data['task_id']
     if active and task_id:
-        task = requests.get(API_URL + "/tasks/" + str(task_id)).json()[0]
+        task = requests.get(API_URL + "/tasks/" + str(task_id)).json()
         target = task['target']
         port = task['port']
         chunksize = task['chunksize']
